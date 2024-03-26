@@ -1,4 +1,4 @@
-baseURL = "https://jakubsapko.github.io/blog"
+baseURL = "https://jakubsapko.github.io/"
 languageCode = 'en-us'
 title = 'c00b blog'
 theme = 'mini'
