@@ -1,7 +1,7 @@
 +++
 title = 'About'
 date = 2024-03-27T17:04:05+01:00
-draft = true
+draft = false 
 +++
 
 
@@ -19,12 +19,13 @@ When I was a child I got introduced to computers by my older sister. Together, w
 - Hosting my own Minecraft servers,
 - Learning C++, Mathematica and Python when studying Physics in Uni,
 - Eventually realizing that I spend most of free time writing software, creating Django apps and APIs, putting up fun simulations rather than solving sets of differential equations and thus switching my university for a Computer Science degree
+- Learning all the fancy, shiny thingies that we all hate so much in the modern software development - yeah, I'm looking at you, React
 
 ## So, what do I do now?
 
 For the past 3 years I've been programming commercialy for Merck (aka MSD) and since the last year I've been in a position of a Team Leader in our team. I do _everything_ including CLIs, services, APIs, internal tools, CI/CD stuff, infrastructure and so on, and so on.
 
-Lately I've been really interested in the CyberSecurity, however I have no way of involving this in my day-to-day job so I decided that I'll create this blog to allow me to have a space for sharing what I've learned, what I've pwned and where I'm at in my CyberSec journey - as eventually I'll want to make it fulltime.
+Lately I've been really interested in the CyberSecurity but I have no way of involving it in my day-to-day job so I decided that I'll create this blog to allow me to have a space for sharing what I've learned, what I've pwned and where I'm at in my CyberSec journey - as eventually I'll want to make it fulltime.
 
 ## If anyone ever reads this
 

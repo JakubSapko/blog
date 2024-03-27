@@ -2,27 +2,30 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>http://localhost:63981/about/</loc>
+    <loc>http://localhost:50391/</loc>
+    <lastmod>2024-03-27T20:49:28+01:00</lastmod>
+  </url><url>
+    <loc>http://localhost:50391/posts/pixie_dust_attack/</loc>
+    <lastmod>2024-03-27T20:49:28+01:00</lastmod>
+  </url><url>
+    <loc>http://localhost:50391/posts/</loc>
+    <lastmod>2024-03-27T20:49:28+01:00</lastmod>
+  </url><url>
+    <loc>http://localhost:50391/about/</loc>
     <lastmod>2024-03-27T17:04:05+01:00</lastmod>
   </url><url>
-    <loc>http://localhost:63981/</loc>
-    <lastmod>2024-03-27T17:04:05+01:00</lastmod>
-  </url><url>
-    <loc>http://localhost:63981/tags/cybersecurity/</loc>
+    <loc>http://localhost:50391/tags/cybersecurity/</loc>
     <lastmod>2024-03-26T15:18:19+01:00</lastmod>
   </url><url>
-    <loc>http://localhost:63981/posts/my-first-post/</loc>
+    <loc>http://localhost:50391/posts/my-first-post/</loc>
     <lastmod>2024-03-26T15:18:19+01:00</lastmod>
   </url><url>
-    <loc>http://localhost:63981/posts/</loc>
+    <loc>http://localhost:50391/tags/sample_tag/</loc>
     <lastmod>2024-03-26T15:18:19+01:00</lastmod>
   </url><url>
-    <loc>http://localhost:63981/tags/sample_tag/</loc>
+    <loc>http://localhost:50391/tags/</loc>
     <lastmod>2024-03-26T15:18:19+01:00</lastmod>
   </url><url>
-    <loc>http://localhost:63981/tags/</loc>
-    <lastmod>2024-03-26T15:18:19+01:00</lastmod>
-  </url><url>
-    <loc>http://localhost:63981/categories/</loc>
+    <loc>http://localhost:50391/categories/</loc>
   </url>
 </urlset>

@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Cybersecurity on Jakub Sapko&#39;s Blog</title>
-    <link>http://localhost:63981/tags/cybersecurity/</link>
+    <link>http://localhost:50391/tags/cybersecurity/</link>
     <description>Recent content in Cybersecurity on Jakub Sapko&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Tue, 26 Mar 2024 15:18:19 +0100</lastBuildDate>
-    <atom:link href="http://localhost:63981/tags/cybersecurity/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:50391/tags/cybersecurity/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>My First Post</title>
-      <link>http://localhost:63981/posts/my-first-post/</link>
+      <link>http://localhost:50391/posts/my-first-post/</link>
       <pubDate>Tue, 26 Mar 2024 15:18:19 +0100</pubDate>
-      <guid>http://localhost:63981/posts/my-first-post/</guid>
+      <guid>http://localhost:50391/posts/my-first-post/</guid>
       <description>Introduction 🔗This is a bold text, and this is emphasized text.&#xA;Visit the Hugo website!</description>
     </item>
   </channel>
