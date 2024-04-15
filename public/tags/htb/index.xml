@@ -6,12 +6,12 @@
     <description>Recent content in HTB on Jakub Sapko&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 27 Mar 2024 20:49:28 +0100</lastBuildDate>
+    <lastBuildDate>Sun, 14 Apr 2024 10:49:28 +0100</lastBuildDate>
     <atom:link href="//localhost:1313/tags/htb/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Fairy magic - about a Pixie Dust Attack</title>
       <link>//localhost:1313/posts/fairy-magic-about-a-pixie-dust-attack/</link>
-      <pubDate>Wed, 27 Mar 2024 20:49:28 +0100</pubDate>
+      <pubDate>Sun, 14 Apr 2024 10:49:28 +0100</pubDate>
       <guid>//localhost:1313/posts/fairy-magic-about-a-pixie-dust-attack/</guid>
       <description>About 🔗Lately I&amp;rsquo;ve been going through the WifineticTwo machine on HackTheBox as a part of my Cybersecurity/pentesting adventures. Throughout years I always considered networks and everything connected with, well, connecting computers with each other as one of the most challenging and difficult things in IT that I&amp;rsquo;ve tried.&#xA;This is why I considered this machine to be quite challenging - especially the root flag part. On the other hand, the method that I found and used to obtain the root flag was so clever, interesting and jaw-dropping that I decided to dig a little bit more on it and consolidate my knowledge about this attack type.</description>
     </item>
