@@ -1,7 +1,7 @@
 +++
 title = 'Fairy magic - about a Pixie Dust Attack'
-date = 2024-03-27T20:49:28+01:00
-draft = true
+date = 2024-04-15T10:49:28+01:00
+draft = false
 tags = ["Cybersecurity", "Theory", "HTB"]
 +++
 
