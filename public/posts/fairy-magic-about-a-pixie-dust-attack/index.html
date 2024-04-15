@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <title>Fairy magic - about a Pixie Dust Attack | Jakub Sapko&#39;s Blog</title>
+
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">    
+<meta name="viewport" content="width=device-width,minimum-scale=1">
+<meta name="description" content="About 🔗Lately I&rsquo;ve been going through the WifineticTwo machine on HackTheBox as a part of my Cybersecurity/pentesting adventures. Throughout years I always considered networks and everything connected with, well, connecting computers with each other as one of the most challenging and difficult things in IT that I&rsquo;ve tried.
+This is why I considered this machine to be quite challenging - especially the root flag part. On the other hand, the method that I found and used to obtain the root flag was so clever, interesting and jaw-dropping that I decided to dig a little bit more on it and consolidate my knowledge about this attack type.">
+<meta name="generator" content="Hugo 0.124.1">
+
+
+  <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+<link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
+
+ 
+  
+
+
+
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.min.css" integrity="sha384-RZU/ijkSsFbcmivfdRBQDtwuwVqK7GMOw6IMvKyeWL2K5UAlyp6WonmB8m7Jd0Hn" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.min.js" integrity="sha384-pK1WpvzWVBQiP0/GjnvRxV4mOb0oxFuyRxJlk6vVw146n3egcN5C925NCP7a7BY8" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/contrib/auto-render.min.js" integrity="sha384-vZTG03m+2yp6N6BNi5iM4rW4oIwk5DfcNdFfxkk9ZWpDriOkXX8voJBFrAO7MpVl" crossorigin="anonymous"
+    onload="renderMathInElement(document.body);"></script>
+
+
+
+
+
+  </head>
+
+  <body>
+    <nav class="navigation">
+	
+		<a href="/"> <span class="arrow">←</span>Home</a>
+	
+	<a href="/posts">Archive</a>
+	<a href="/tags">Tags</a>
+	<a href="/about">About</a>
+
+	
+
+	
+	  <a class="button" href="//localhost:1313/index.xml">Subscribe</a>
+	
+</nav>
+
+
+    <main class="main">
+      
+
+<section id="single">
+    <h1 class="title">Fairy magic - about a Pixie Dust Attack</h1>
+
+    <div class="tip">
+        <time datetime="2024-03-27 20:49:28 &#43;0100 CET">Mar 27, 2024</time>
+        <span class="split">
+          ·
+        </span>
+        <span>
+          1835 words
+        </span>
+        <span class="split">
+          ·
+        </span>
+        <span>
+          9 minute read
+        </span>
+    </div>
+
+    
+    
+
+
+    <div class="content">
+      <h1 id="about">About <a href="#about" class="anchor">🔗</a></h1><p>Lately I&rsquo;ve been going through the <strong><a href="https://app.hackthebox.com/machines/WifineticTwo" target="_blank" rel="noopener">WifineticTwo</a></strong> machine on HackTheBox as a part of my Cybersecurity/pentesting adventures. Throughout years I always considered networks and everything connected with, well, connecting computers with each other as one of the most challenging and difficult things in IT that I&rsquo;ve tried.</p>
+<p>This is why I considered this machine to be quite challenging - especially the root flag part. On the other hand, the method that I found and used to obtain the root flag was so clever, interesting and jaw-dropping that I decided to dig a little bit more on it and consolidate my knowledge about this attack type.</p>
+<p>I found it really hard to find any comprehensive source of knowledge about a Pixie Dust Attack so I also decided to share what I found and how I understand it right there, in this blog post. Hopefully you&rsquo;ll enjoy!</p>
+<h1 id="background">Background <a href="#background" class="anchor">🔗</a></h1><p>This is not a full WifineticTwo writeup, so I won&rsquo;t bother with leading you through the whole machine up to the point where this attack was needed to be used to advance further, however I think it is worth understanding at what point it was used, why and how did I manage to think about the potential attack vector.</p>
+<p>It all started when, after gaining the initial foothold and receiving user&rsquo;s flag, I couldn&rsquo;t find anything relevant that would lead me to a root flag. I don&rsquo;t have a lot of experience in CTFs, I&rsquo;m just 4 months into the whole CyberSec journey, however, what I&rsquo;ve noticed is that usually you either get a somehow clear indication of where to look for vulnerabilities (which comes at the cost of the actual attack being harder to perform), you get something that seems suspicious (or rather, different from what you&rsquo;ve seen so far in other CTFs), you get a strong clue from the machine&rsquo;s name or you get any combination of former.</p>
+<p>In that case it was the combination of the second and third point.</p>
+<h1 id="understanding-whats-going-on-sort-of">Understanding what&rsquo;s going on (sort of) <a href="#understanding-whats-going-on-sort-of" class="anchor">🔗</a></h1><p>Let&rsquo;s start with the suspcious files that I&rsquo;ve found.
+When browsing through the machine I stumbled upon the Bash scripts related to setting up <a href="https://wiki.archlinux.org/title/systemd-networkd" target="_blank" rel="noopener">systemd-networkd</a> daemon in different scenarios.
+This (along with the machine&rsquo;s name - WifineticTwo) made me think that there must be something to do with networks and this kind of stuff.
+At this time, I also run a <code>systemd-detect-virt</code> (<a href="https://www.linux.org/docs/man1/systemd-detect-virt.html" target="_blank" rel="noopener">https://www.linux.org/docs/man1/systemd-detect-virt.html</a>) and realized that I&rsquo;m in fact inside the Linux container <p class="markdown-image">
+  <img src="/linux_container.png" alt="linux container"  />
+</p></p>
+<p>Running <code>iwconfig</code> confirmed that there&rsquo;s a <code>wlan0</code> interface available. <p class="markdown-image">
+  <img src="/wlan.png" alt="wlan confirmation"  />
+</p></p>
+<p>All of this joined with the machine&rsquo;s name (from what I&rsquo;ve found on different forums - the first Wifinetic machine was somehow famous for teaching the network attack vectors) made me think that there must&rsquo;ve been another machine that I need to hop over from the container I gained access to.
+This machine happened to be a local (for the machine) network&rsquo;s router.</p>
+<h1 id="educate-yourself-dumbass">Educate yourself, dumbass! <a href="#educate-yourself-dumbass" class="anchor">🔗</a></h1><p>This machine really challenged my status quo on the networking knowledge. You see, up to this point I&rsquo;ve always thought that I won&rsquo;t ever need to get more into how the networks actually work, how the networks elements are configured, what they are supposed to achieve and so on.
+It just wasn&rsquo;t my thing, ever. What I&rsquo;ve known was really just enough to get my devices set up within my home network - that&rsquo;s all. Well, it&rsquo;s fairly easy when you&rsquo;ve got all the credentials, isn&rsquo;t it?
+The problem with pwning things is that you need to KNOW the stuff you&rsquo;re trying to own. Like, really know. What I&rsquo;ve learned so far from the whole CTF/reverse engineering journey is that most often you don&rsquo;t really know how the things you&rsquo;re using work.
+Like, sure, you might have some sort of UNDERSTANDING about the things you&rsquo;re touching but do you really KNOW how they work? The difference between understanding and knowing is tremendous. So I might have said that I understand the basic concepts of networking but I didn&rsquo;t really know them.
+And when you know what you don&rsquo;t know, there&rsquo;s only one way from there - to educate yourself on the topic.</p>
+<p>So I did. I started going through the masses of more or less useful articles, PDFs, videos, etc. on how the networks work. You see, it&rsquo;s fairly easy to say what must&rsquo;ve been achieved - get the credentials to router, get to the router, most likely find the root flag as it is just a &ldquo;medium&rdquo; difficulty machine and you don&rsquo;t expect another machine jumps to be needed. The thing is - I couldn&rsquo;t find any trace of the router credentials on the machine. None. null. Nil. Nothing.
+This is why I spent so much time going through all the resources that I could find. Because I was clueless. I had no other trail than to go through as much material as possible, hoping to find anything useful.</p>
+<p>And I did.</p>
+<h1 id="getting-something-from-nothing">Getting something from nothing <a href="#getting-something-from-nothing" class="anchor">🔗</a></h1><p>You see, usually to connect to WiFi network, you need to provide two values: SSID (a &ldquo;username&rdquo; of sorts) and a Pre-Shared Key (which you can think of as a &ldquo;password&rdquo; to your router).
+However! What if, just what if, someone forgot their router credentials? Well, worry not, because some smartass engineers thought about you! There&rsquo;s a high chance, that if you investigated your router a little bit more you&rsquo;d find a value called WPS PIN.
+WPS PIN is a mechanism that was supposed to let you easily recover the router&rsquo;s credentials or even log into the router itself. By providing this 8-digit number you&rsquo;re getting a full access to your router. This is where fun begins.
+I found out that back in the time the common strategy to owning routers was to just bruteforce the WPS PIN. You&rsquo;d think that this would take a lot of time (also depending on the distance between you and router) as it is \(10^8\) combinations but you&rsquo;d be wrong - it&rsquo;s a lot less.</p>
+<p>The last digit is considered a cheksum - so we can skip it. Now we got \(10^7\) combinations. But there&rsquo;s a small, but important, implementation detail. You see, you&rsquo;ll get \(10^7\) combinations if, and only if, you&rsquo;ll treat those 7 digits as a single number.</p>
+<p>But you don&rsquo;t.</p>
+<p>WPA&rsquo;s specification actually says that the WPS PIN is validated as two, separate 4 digit numbers. This means that you end up with \(10^4+10^3\) (remember the checksum number) combinations instead of \(10^7\). Roughly 11k against 10 milions. This makes it extremely vulnerable to any bruteforce attack.
+The feasibility of cracking the WPS PIN in the bruteforce attack made the manufacturers think about the security of the WPS a little bit more. Because the PIN validation is a architecture flaw the only way they could&rsquo;ve (and had) gone is to hard-stop the potential attack at some point. Thus most of the network chips will block connections after several connection attempts, making it harder or near-impossible to break using any bruteforce technique.</p>
+<p>And this is where Pixie Dust attack comes into play.</p>
+<h2 id="a-true-wizard-needs-only-one-spell">A true wizard needs only one spell <a href="#a-true-wizard-needs-only-one-spell" class="anchor">🔗</a></h2><p>So, if you have a limited amount of connection attempts in which you can try to break a PIN (sometimes limited up to one attempt) but you&rsquo;re a smelly evil hacker who wants to own the router, what would you do? Of course you&rsquo;d find a way to find out the PIN in one shot. This is what Pixie Dust attack attempts to achieve.</p>
+<p>To understand how we&rsquo;re able to find out the WPS PIN in one shot we first need to understand how the router-client connection works and what are the necessary steps that need to be taken in order to validate yourself to a router.
+Picture below explains what steps (and in what order) are taken when trying to connect to enrolee.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center"><p class="markdown-image">
+  <img src="/wps2.png" alt="wps"  />
+</p></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><em>All thanks to @Dominique Bongard (a father of Pixie Dust) for this great presentation: <a href="http://archive.hack.lu/2014/Hacklu2014_offline_bruteforce_attack_on_wps.pdf" target="_blank" rel="noopener">http://archive.hack.lu/2014/Hacklu2014_offline_bruteforce_attack_on_wps.pdf</a></em></td>
+</tr>
+</tbody>
+</table>
+<p>If you want to fully understand the whole process I suggest you visit the link in the above picture&rsquo;s caption - it is a PowerPoint presentation made by Dominique Bongrad, who first noticed the possible vulnerability and who created the Pixie Dust attack, and it goes into great details in order to explain the attack to it&rsquo;s core.</p>
+<p>For us, the most important step is the M3 message. This is because at this step the enrolee (router) serves hashed values of E-S1 and E-S2 to a client. E-S1 and E-S2 are basically hashes of the both PIN halves that we&rsquo;re looking for - this is quite a simplification, but it&rsquo;s enough for us to understand the attack, if you wish to know more details about what, and in what form, is sent in those messages please refer to the Dominique&rsquo;s presentation.
+One question that arises is - &ldquo;so why would the enrolee send the PIN to a client, if it is a client who wants to connect to the router?&rdquo;. This is done because both the client and the enrolee need to prove that they know the PIN. This is done so that a client can have a
+confidence that it is trying to connect to the correct AP and not the one that could be considered rogue.</p>
+<p>There is one more thing to this step - cracking those hashes would seem fairly easy because, as we remember from before, there&rsquo;s a small number of combinations available. But it can be even easier. You see, for some strange reason, the manufacturers thought that it will be enough if the random number generator <a href="https://en.wikipedia.org/wiki/Random_seed" target="_blank" rel="noopener">seed</a> would be set to either 0 or a timestamp of a connection. Knowing both the RNG seed and the hashing algorithm that was used, an attacker is able to crack the PIN in a single shot.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center"><p class="markdown-image">
+  <img src="/attack2.png" alt="attack"  />
+</p></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><em>A result of the attack - cracked PIN, password and AP id</em></td>
+</tr>
+</tbody>
+</table>
+<h1 id="aftermath">Aftermath <a href="#aftermath" class="anchor">🔗</a></h1><p>The question arises - alright, if this is so easy to own someone&rsquo;s router, how can I protect myself from being attacked? First of all - this does not apply to <em>all</em> routers. Only a number of manufacturers confirmed that their hardware and firmware are vulnerable. Of course, this is in no way a confirmation that it does not apply to others.
+If you want to be 100% sure that you won&rsquo;t get owned this way you should disable the WPS PIN connection option in your router&rsquo;s settings. However, if it happens that you have an older/less reliable router, it is possible that even if you switched the option off the router will still be vulnerable - this is because sometimes you are told the option was disabled but in reality it is still on.
+If this is your case - you should probably think about changing your stuff to a newer one.</p>
+<h1 id="summary">Summary <a href="#summary" class="anchor">🔗</a></h1><p>Hopefully I managed to introduce you a little bit to the topic of Pixie Dust attack and WPS configuration. If you have any comments or thoughts that you mind sharing, please reach out to me either on <a href="https://www.linkedin.com/in/jakub-sapko/" target="_blank" rel="noopener">LinkedIn</a> or via email - <a href="mailto:jakubsapko@protonmail.com">jakubsapko@protonmail.com</a></p>
+
+    </div>
+
+    
+        <div class="tags">
+            
+                <a href="//localhost:1313/tags/cybersecurity">Cybersecurity</a>
+            
+                <a href="//localhost:1313/tags/theory">Theory</a>
+            
+                <a href="//localhost:1313/tags/htb">HTB</a>
+            
+        </div>
+    
+    
+    
+
+</section>
+
+
+    </main>
+    
+    <footer id="footer">
+    
+        <div id="social">
+
+
+    <a class="symbol" href="https://github.com/JakubSapko" rel="me" target="_blank">
+        
+        <svg fill="#bbbbbb" width="28" height="28"  viewBox="0 0 72 72" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    
+    <title>Github</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Social-Icons---Rounded-Black" transform="translate(-264.000000, -939.000000)">
+            <g id="Github" transform="translate(264.000000, 939.000000)">
+                <path d="M8,72 L64,72 C68.418278,72 72,68.418278 72,64 L72,8 C72,3.581722 68.418278,-8.11624501e-16 64,0 L8,0 C3.581722,8.11624501e-16 -5.41083001e-16,3.581722 0,8 L0,64 C5.41083001e-16,68.418278 3.581722,72 8,72 Z" id="Rounded" fill="#bbbbbb"></path>
+                <path d="M35.9985,13 C22.746,13 12,23.7870921 12,37.096644 C12,47.7406712 18.876,56.7718301 28.4145,59.9584121 C29.6145,60.1797862 30.0525,59.4358488 30.0525,58.7973276 C30.0525,58.2250681 30.0315,56.7100863 30.0195,54.6996482 C23.343,56.1558981 21.9345,51.4693938 21.9345,51.4693938 C20.844,48.6864054 19.2705,47.9454799 19.2705,47.9454799 C17.091,46.4500754 19.4355,46.4801943 19.4355,46.4801943 C21.843,46.6503662 23.1105,48.9634994 23.1105,48.9634994 C25.2525,52.6455377 28.728,51.5823398 30.096,50.9649018 C30.3135,49.4077535 30.9345,48.3460615 31.62,47.7436831 C26.2905,47.1352808 20.688,45.0691228 20.688,35.8361671 C20.688,33.2052792 21.6225,31.0547881 23.1585,29.3696344 C22.911,28.7597262 22.0875,26.3110578 23.3925,22.9934585 C23.3925,22.9934585 25.4085,22.3459017 29.9925,25.4632101 C31.908,24.9285993 33.96,24.6620468 36.0015,24.6515052 C38.04,24.6620468 40.0935,24.9285993 42.0105,25.4632101 C46.5915,22.3459017 48.603,22.9934585 48.603,22.9934585 C49.9125,26.3110578 49.089,28.7597262 48.8415,29.3696344 C50.3805,31.0547881 51.309,33.2052792 51.309,35.8361671 C51.309,45.0917119 45.6975,47.1292571 40.3515,47.7256117 C41.2125,48.4695491 41.9805,49.9393525 41.9805,52.1877301 C41.9805,55.4089489 41.9505,58.0067059 41.9505,58.7973276 C41.9505,59.4418726 42.3825,60.1918338 43.6005,59.9554002 C53.13,56.7627944 60,47.7376593 60,37.096644 C60,23.7870921 49.254,13 35.9985,13" fill="#FFFFFF"></path>
+            </g>
+        </g>
+    </g>
+</svg>
+    </a>
+
+
+</div>
+
+    
+
+    <div class="copyright">
+    
+       © Copyright 
+       2024 
+       <span class="split">
+        <svg fill="#bbbbbb" width="15" height="15" version="1.1" id="heart-15" xmlns="http://www.w3.org/2000/svg" width="15px" height="15px" viewBox="0 0 15 15">
+  <path d="M13.91,6.75c-1.17,2.25-4.3,5.31-6.07,6.94c-0.1903,0.1718-0.4797,0.1718-0.67,0C5.39,12.06,2.26,9,1.09,6.75&#xA;&#x9;C-1.48,1.8,5-1.5,7.5,3.45C10-1.5,16.48,1.8,13.91,6.75z"/>
+</svg>
+       </span>
+       Jakub Sapko
+    
+    </div>
+
+    
+</footer>
+
+
+
+  </body>
+</html>

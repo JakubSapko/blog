@@ -2,24 +2,38 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tags on Jakub Sapko&#39;s Blog</title>
-    <link>http://localhost:50391/tags/</link>
+    <link>//localhost:1313/tags/</link>
     <description>Recent content in Tags on Jakub Sapko&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 26 Mar 2024 15:18:19 +0100</lastBuildDate>
-    <atom:link href="http://localhost:50391/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 27 Mar 2024 20:49:28 +0100</lastBuildDate>
+    <atom:link href="//localhost:1313/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Cybersecurity</title>
-      <link>http://localhost:50391/tags/cybersecurity/</link>
-      <pubDate>Tue, 26 Mar 2024 15:18:19 +0100</pubDate>
-      <guid>http://localhost:50391/tags/cybersecurity/</guid>
+      <link>//localhost:1313/tags/cybersecurity/</link>
+      <pubDate>Wed, 27 Mar 2024 20:49:28 +0100</pubDate>
+      <guid>//localhost:1313/tags/cybersecurity/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>HTB</title>
+      <link>//localhost:1313/tags/htb/</link>
+      <pubDate>Wed, 27 Mar 2024 20:49:28 +0100</pubDate>
+      <guid>//localhost:1313/tags/htb/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Theory</title>
+      <link>//localhost:1313/tags/theory/</link>
+      <pubDate>Wed, 27 Mar 2024 20:49:28 +0100</pubDate>
+      <guid>//localhost:1313/tags/theory/</guid>
       <description></description>
     </item>
     <item>
       <title>Sample_tag</title>
-      <link>http://localhost:50391/tags/sample_tag/</link>
+      <link>//localhost:1313/tags/sample_tag/</link>
       <pubDate>Tue, 26 Mar 2024 15:18:19 +0100</pubDate>
-      <guid>http://localhost:50391/tags/sample_tag/</guid>
+      <guid>//localhost:1313/tags/sample_tag/</guid>
       <description></description>
     </item>
   </channel>
