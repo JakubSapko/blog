@@ -62,7 +62,7 @@ The last digit is considered a cheksum - so we can skip it. Now we got \(10^7\) 
 But you don't.
 
 WPA's specification actually says that the WPS PIN is validated as two, separate 4 digit numbers. This means that you end up with \(10^4+10^3\) (remember the checksum number) combinations instead of \(10^7\). Roughly 11k against 10 milions. This makes it extremely vulnerable to any bruteforce attack.
-The feasibility of cracking the WPS PIN in the bruteforce attack made the manufacturers think about the security of the WPS a little bit more. Because the PIN validation is a architecture flaw the only way they could've (and had) gone is to hard-stop the potential attack at some point. Thus most of the network chips will block connections after several connection attempts, making it harder or near-impossible to break using any bruteforce technique.
+The feasibility of cracking the WPS PIN in the bruteforce attack made the manufacturers think about the security of the WPS a little bit more. Because the PIN validation is an architecture flaw the only way they could've (and had) gone is to hard-stop the potential attack at some point. Thus most of the network chips will block connections after several connection attempts, making it harder or near-impossible to break using any bruteforce technique.
 
 And this is where Pixie Dust attack comes into play.
 
